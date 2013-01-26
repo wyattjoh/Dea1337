@@ -69,7 +69,7 @@ class Player(object):
         return "%s; numDelivered:%r" % (self.name, len(self.passengersDelivered))
 
     def __eq__(self, other):
-        if instanceof(other, Player) and other.guid == self.guid:
+        if isinstance(other, Player) and other.guid == self.guid:
             return True
         else:
             return False

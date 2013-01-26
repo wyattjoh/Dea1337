@@ -17,7 +17,7 @@ from debug import printrap
 
 from xml.etree import ElementTree as ET
 
-NAME = "Dea1337"
+NAME = "Don't Expect Anything"
 SCHOOL = "University of Alberta"
 
 class MyPlayerBrain(object):
@@ -135,15 +135,23 @@ class MyPlayerBrain(object):
                                                 p != me.limo.passenger and
                                                 p.car is None and
                                                 p.lobby is not None and p.destination is not None)]
-            priority = {}
-            pickuporder = []
-            for p in pickup:
-                priority[p] = (abs(p.lobby.busStop[0] - me.limo.tilePosition[0])) + (abs(p.lobby.busStop[1]-me.limo.tilePosition[1])) + (abs(p.lobby.busStop[0] - p.destination.busStop[0])) + (abs(p.lobby.busStop[1]-p.destination.busStop[1]))
-            while len(priority)>0:            
-                for person in priority:
-                    if priority[person] is min(priority.values()):
-                        pickuporder.append(person)
-                        priority.pop(person)
-                        break
+            pickuporder = calcPriority(pickup)
             #random.shuffle(pickup)
             return pickuporder
+    
+    
+    
+    def calcPriority(pickup):
+        pickuporder = []
+        priority = {}
+        pointmap = {1:5, 2:4, 3:3}
+        for p in pickup:
+            priority[p] = ((abs(p.lobby.busStop[0]-me.limo.tilePosition[0]))+(abs(p.lobby.busStop[1]-me.limo.tilePosition[1]))     +      (abs(p.lobby.busStop[0]-p.destination.busStop[0]))+(abs(p.lobby.busStop[1]-p.destination.busStop[1])))                    *  pointmap[p.pointsDelivered]
+        while len(priority)>0:
+            close = min(priority.values())
+            for person in priority:
+                if priority[person] == close:
+                    pickuporder.append(person)
+                    priority.pop(person)
+                    break
+        return pickuporder

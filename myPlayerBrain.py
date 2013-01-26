@@ -147,9 +147,9 @@ class MyPlayerBrain(object):
         for enemy in p.enemies:
             if enemy.destination == p.destination:
                 if enemy.car == None:
-                    eDist = eDist + distanceCalc(p.lobby.busStop,enemy.lobby.busStop)
+                    eDist = eDist + self.distanceCalc(p.lobby.busStop,enemy.lobby.busStop)
                 else:
-                    eDist = eDist + (2*distanceCalc(p.lobby.busStop,enemy.car.tilePosition))
+                    eDist = eDist + (2*self.distanceCalc(p.lobby.busStop,enemy.car.tilePosition))
         return eDist
     
     def calcPriority(self, me, pickup):

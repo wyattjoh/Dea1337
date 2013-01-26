@@ -139,7 +139,7 @@ class MyPlayerBrain(object):
             pickuporder = []
             for p in pickup:
                 priority[p] = (abs(p.lobby.busStop[0] - me.limo.tilePosition[0])) + (abs(p.lobby.busStop[1]-me.limo.tilePosition[1]))
-            for person in priority:
+            while len(priority)>0:
                 if priority[person] is min(priority.values()):
                     pickuporder.append(person)
                     priority.pop(person)

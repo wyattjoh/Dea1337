@@ -142,12 +142,22 @@ class MyPlayerBrain(object):
     def distanceCalc(self, from_pos, to_pos):
         return ((abs(from_pos[0]-to_pos[0]))+(abs(to_pos[1]-from_pos[1])))
     
+    def calcEnemies(self, me, p):
+        eDist = 0
+        for enemy in p.enemies:
+            if enemy.destination == p.destination:
+                if enemy.car == None:
+                    eDist = eDist + distanceCalc(p.lobby.busStop,enemy.lobby.busStop)
+                else:
+                    eDist = eDist + (2*distanceCalc(p.lobby.busStop,enemy.car.tilePosition))
+        return eDist
+    
     def calcPriority(self, me, pickup):
         pickuporder = []
         priority = {}
         pointmap = {1:5, 2:4, 3:3}
         for p in pickup:
-            priority[p] = (self.distanceCalc(p.lobby.busStop,me.limo.tilePosition) +      self.distanceCalc(p.lobby.busStop,p.destination.busStop) )*  pointmap[p.pointsDelivered]
+            priority[p] = (self.distanceCalc(p.lobby.busStop,me.limo.tilePosition) + self.distanceCalc(p.lobby.busStop,p.destination.busStop) + self.calcEnemies(me, p) * pointmap[p.pointsDelivered]
         while len(priority)>0:
             close = min(priority.values())
             for person in priority:

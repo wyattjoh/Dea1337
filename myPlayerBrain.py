@@ -141,6 +141,7 @@ class MyPlayerBrain(object):
                 priority[p] = (abs(p.lobby.busStop[0] - me.limo.tilePosition[0])) + (abs(p.lobby.busStop[1]-me.limo.tilePosition[1]))
             for person in priority:
                 if priority[person] is min(priority.values()):
-                    pickuporder.append(priority.popitem(person)[0])
+                    pickuporder.append(person)
+                    priority.pop(person)
             #random.shuffle(pickup)
             return pickuporder

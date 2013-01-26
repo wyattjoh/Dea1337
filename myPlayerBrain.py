@@ -135,5 +135,12 @@ class MyPlayerBrain(object):
                                                 p != me.limo.passenger and
                                                 p.car is None and
                                                 p.lobby is not None and p.destination is not None)]
-            random.shuffle(pickup)
-            return pickup
+            priority = {}
+            pickuporder = []
+            for p in pickup:
+                priority[p] = (abs(p.lobby.busStop[0] - me.limo.tilePosition[0])) + (abs(p.lobby.busStop[1]-me.limo.tilePosition[1]))
+            for person in priority:
+                if priority[person] is min(priority.values()):
+                    pickuporder.append(priority.popitem(person)[0])
+            #random.shuffle(pickup)
+            return pickuporder

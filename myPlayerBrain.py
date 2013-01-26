@@ -138,7 +138,7 @@ class MyPlayerBrain(object):
             priority = {}
             pickuporder = []
             for p in pickup:
-                priority[p] = (abs(p.lobby.busStop[0] - me.limo.tilePosition[0])) + (abs(p.lobby.busStop[1]-me.limo.tilePosition[1]))
+                priority[p] = (abs(p.lobby.busStop[0] - me.limo.tilePosition[0])) + (abs(p.lobby.busStop[1]-me.limo.tilePosition[1])) + (abs(p.lobby.busStop[0] - p.destination.busStop[0])) + (abs(p.lobby.busStop[1]-p.destination.busStop[1]))
             while len(priority)>0:            
                 for person in priority:
                     if priority[person] is min(priority.values()):

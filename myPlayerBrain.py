@@ -135,13 +135,13 @@ class MyPlayerBrain(object):
                                                 p != me.limo.passenger and
                                                 p.car is None and
                                                 p.lobby is not None and p.destination is not None)]
-            pickuporder = self.calcPriority(pickup)
+            pickuporder = self.calcPriority(me, pickup)
             #random.shuffle(pickup)
             return pickuporder
     
     
     
-    def calcPriority(self, pickup):
+    def calcPriority(self, me, pickup):
         pickuporder = []
         priority = {}
         pointmap = {1:5, 2:4, 3:3}

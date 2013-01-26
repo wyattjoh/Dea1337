@@ -135,7 +135,7 @@ class MyPlayerBrain(object):
                                                 p != me.limo.passenger and
                                                 p.car is None and
                                                 p.lobby is not None and p.destination is not None)]
-            pickuporder = calcPriority(pickup)
+            pickuporder = self.calcPriority(pickup)
             #random.shuffle(pickup)
             return pickuporder
     

@@ -139,14 +139,15 @@ class MyPlayerBrain(object):
             #random.shuffle(pickup)
             return pickuporder
     
-    
+    def distanceCalc(self, from_pos, to_pos):
+        return ((abs(from_pos[0]-to_pos[0]))+(abs(to_pos[1]-from_pos[1])))
     
     def calcPriority(self, me, pickup):
         pickuporder = []
         priority = {}
         pointmap = {1:5, 2:4, 3:3}
         for p in pickup:
-            priority[p] = ((abs(p.lobby.busStop[0]-me.limo.tilePosition[0]))+(abs(p.lobby.busStop[1]-me.limo.tilePosition[1]))     +      (abs(p.lobby.busStop[0]-p.destination.busStop[0]))+(abs(p.lobby.busStop[1]-p.destination.busStop[1])))                    *  pointmap[p.pointsDelivered]
+            priority[p] = (self.distanceCalc(p.lobby.busStop,me.limo.tilePosition) +      self.distanceCalc(p.lobby.busStop,p.destination.busStop) )*  pointmap[p.pointsDelivered]
         while len(priority)>0:
             close = min(priority.values())
             for person in priority:

@@ -141,7 +141,7 @@ class MyPlayerBrain(object):
     
     
     
-    def calcPriority(pickup):
+    def calcPriority(self, pickup):
         pickuporder = []
         priority = {}
         pointmap = {1:5, 2:4, 3:3}

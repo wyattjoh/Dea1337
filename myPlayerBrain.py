@@ -140,7 +140,10 @@ class MyPlayerBrain(object):
             return pickuporder
     
     def distanceCalc(self, from_pos, to_pos):
-        return ((abs(from_pos[0]-to_pos[0]))+(abs(to_pos[1]-from_pos[1])))
+        path = simpleAStar.calculatePath(self.gameMap, from_pos, to_pos)
+        pathlen = len(path) - 1
+        return pathlen
+        #return ((abs(from_pos[0]-to_pos[0]))+(abs(to_pos[1]-from_pos[1])))
     
     def calcEnemies(self, me, p):
         eDist = 0
